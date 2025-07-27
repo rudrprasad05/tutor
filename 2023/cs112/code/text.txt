@@ -1,0 +1,124 @@
+class Node{
+    public: 
+        int data;
+        Node *left; 
+        Node *right;
+};
+
+int nodes(Node* root){
+    if(root == NULL) return 0;
+    else{
+        return 1 + nodes(root->left) + nodes(root->right);
+    }
+}
+
+int leaf(Node *root){
+    if(root == NULL) return 0;
+    if(root->left == NULL && root->left == NULL) return 1;
+    else{
+        return leaf(root->left) + leaf(root->right);
+    }
+}
+
+int sum(Node *root){
+    if(root == NULL) return 0;
+    else{
+        return root->data + sum(root->left) + sum(root->left);
+    }
+}
+
+int height(Node *root){
+    if(root == NULL){
+        return 0;
+    }
+    else{
+        int l = height(root->left);
+        int r = height(root->right);
+
+        if(l > r) return l + 1;
+        else return r + 1;
+    }
+}
+
+
+int max(Node *root){
+    if(root == NULL) return 0;
+    else{
+        int l = max(root->left);
+        int r = max(root->right);
+
+        int current = root->data;
+
+        if(l > r) current = l;
+        if(r > l) current = r;
+
+        return current;
+    }
+}
+
+
+class Node{
+    private:
+    Node *next;
+    int data;
+
+    public:
+    Node *next(){return this->next}
+    int data(){return this->data}
+
+    void setNext(Node *node){this->next = node}
+    void setData(int data){this->data = data}
+
+
+}
+
+int main(){
+    Node *head = NULL;
+    Node *a = new Node;
+    head = a;
+    a->setData(1);
+    
+    Node *b = new Node;
+    b->setData = (2);
+    a->setNext(b);
+
+    Node *current = NULL;
+    for(current = head; current != NULL; current = current->next){
+        cout << current->data
+    }
+}
+
+int main(){
+    Node *root = new Node();
+    root->data = 1;
+    Node* a = new Node();
+    a->data = 2;
+    Node* b = new Node();
+    b->data = 3;
+    Node* c = new Node();
+    c->data = 4;
+    Node* d = new Node();
+    d->data = 5;
+    Node* e = new Node();
+    e->data = 6;
+    Node* f = new Node();
+    f->data = 7;
+
+    root->left = a;
+    root->right = b;
+
+    a->left = c;
+    
+    b->left = d;
+    b->right = e;
+
+    d->right = f;
+
+        root
+        /   \
+       a    b
+       /   / \
+      c   d  e
+           \
+            f
+}
