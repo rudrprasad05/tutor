@@ -1,5 +1,5 @@
-//import java.util.Vector;
-//import java.util.EmptyStackException;
+import java.util.Vector;
+import java.util.EmptyStackException;
 
 
 class MyStack{
@@ -30,7 +30,8 @@ class MyStack{
   }
 
   public int size() {
-    ???
+    // ???
+    return 0;
   }
 
   public String toString() {
