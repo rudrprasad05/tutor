@@ -6,16 +6,22 @@
 using namespace std;
 
 const int MAX_SIZE = 10;
+const int MAX_ASSIGNMENTS = 5;
 
 char determine_grade(int smarks);
 void discard_line(ifstream &in);
-void print_students_records(string sid[], int smarks[], char sgrades[], int size);
+void print_students_records(string sid[], int assignment_marks[][MAX_ASSIGNMENTS], char sgrades[],int size);
+void print_students_coursework(string id[], int coursework[], int size);
 int total_failed_students(int smarks[], int size);
 
 int main()
 {
     string id[MAX_SIZE];
-    int marks[MAX_SIZE];
+    int assignment_marks[MAX_SIZE][MAX_ASSIGNMENTS];
+	int mst_marks[MAX_SIZE];
+	int final_marks[MAX_SIZE];
+	int total_marks[MAX_SIZE];
+	
     char grade[MAX_SIZE];
     int total_records;
     int choice;
@@ -47,11 +53,17 @@ int main()
         total_records = 0;
         while(!input.eof())
         {    
-             input>>id[total_records]>>marks[total_records];
-             cout<<"id: "<<id[total_records]<<", marks: "<<marks[total_records]<<endl;
-             input>>ws;
-    
-             total_records++;
+	         input >> id[total_records]; // >> put marks into final;
+	         for(int i = 0; i < MAX_ASSIGNMENTS; i++){
+	         	input >> assignment_marks[total_records][i];
+			 }
+			 input >> mst_marks[total_records];
+			 input >> final_marks[total_records];
+			 
+	         cout<<"id: "<<id[total_records]<<", mst : "<<mst_marks[total_records] << ", final : "<<final_marks[total_records]<<endl;
+	         input>>ws;
+	
+	         total_records++;
         }
     }
     else if (choice ==2){
@@ -61,7 +73,7 @@ int main()
             cin>>id[total_records];
 
             cout<<"Enter marks gained: ";
-            cin>>marks[total_records];
+            cin>>mst_marks[total_records];
 
             cout<<"\nPress y or Y to enter another record.";
             cin>>response;
@@ -75,31 +87,50 @@ int main()
         exit(1);
     }
 
-    for (int i = 0; i < total_records; i++){
-            grade[i] = determine_grade(marks[i]);
+    for(int i = 0; i < total_records; i++){
+    	total_marks[i] = mst_marks[i] + final_marks[i];
+	}
+	
+	for (int i = 0; i < total_records; i++){
+            grade[i] = determine_grade(total_marks[i]);
     }
 
     //Testing whether data have been read correctly or not.
     cout<<"\n\nData fed into the system:"<<endl<<endl;
     for (int i = 0; i < total_records; i++){
-        cout<<"id: "<<id[i]<<", marks: "<<marks[i]<<endl;
+        cout<<"id: "<<id[i]<<", marks: "<<mst_marks[i]<<endl;
     }
 
     input.close();
 
-    print_students_records (id, marks, grade, total_records );
+    print_students_records (id, assignment_marks, grade, total_records );
+    print_students_coursework(id, mst_marks, total_records);
 
     cout<<"\n\nTotal students failed the course are: "
-        <<total_failed_students(marks, total_records)<<endl;
+        <<total_failed_students(mst_marks, total_records)<<endl;
 
     system("PAUSE");
     return 0;
 }
 
-void print_students_records(string sid[], int smarks[], char sgrades[],int size){
+void print_students_coursework(string id[], int coursework[], int size) {
+	cout<<"\n\nstudents course work"<<endl<<endl;
+    for (int i = 0; i < size; i++){
+        cout<<"id: "<<id[i]<<", course work: "<< coursework[i] <<endl;
+    }
+}
+
+void print_students_records(string sid[], int assignment_marks[][MAX_ASSIGNMENTS], char sgrades[],int size){
     cout<<"\n\nstudents records"<<endl<<endl;
     for (int i = 0; i < size; i++){
-        cout<<"id: "<<sid[i]<<", marks: "<<smarks[i]<<", grade: "<<sgrades[i]<<endl;
+        cout<<"id: "<<sid[i]; 
+        cout<<", assignment: "; 
+        
+        for(int j = 0; j < MAX_ASSIGNMENTS; j++){
+        	cout << assignment_marks[i][j] << " | ";
+		}
+		
+		cout <<", grade: "<<sgrades[i]<<endl;
     }
 }
 
