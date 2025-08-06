@@ -5,10 +5,6 @@ package com.rudrprasad;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class Main {
