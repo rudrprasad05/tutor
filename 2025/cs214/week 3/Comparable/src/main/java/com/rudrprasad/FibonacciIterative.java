@@ -9,6 +9,7 @@ public class FibonacciIterative {
             long next = a + b;
             a = b;
             b = next;
+            // counter++
         }
         return b;
     }
