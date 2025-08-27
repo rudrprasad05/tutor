@@ -1,5 +1,6 @@
 package com.rudrprasad;
 
+@SuppressWarnings("rawtypes")
 class Student implements Comparable{ //try comparator as HW
     int id;
     String name;
